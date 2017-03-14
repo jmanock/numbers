@@ -54,7 +54,7 @@ app.post('/upload', function(req, res){
           return res.json({error_code:1, err_desc:err, datat:null});
         }
         res.json({error_code:0, err_desc:null, data:result});
-        something(result);
+        magic(result);
       });
     }catch(e){
       res.json({error_code:1, err_desc:'Corupted EXCEL FILE!'});
@@ -69,6 +69,12 @@ app.listen('3000', function(){
   console.log('On port 3 million is running');
 });
 
-function something(result){
+function magic(result){
   // This is where the magic happens
+  for(var i = 0; i<result.length; i++){
+    var company = result[i].Company;
+    var ticker = result[i].Ticker;
+    console.log(result[i]);
+    console.log(result.length);
+  }
 }
