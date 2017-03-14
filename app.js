@@ -72,9 +72,8 @@ app.listen('3000', function(){
 function magic(result){
   // This is where the magic happens
   for(var i = 0; i<result.length; i++){
-    var company = result[i].Company;
-    var ticker = result[i].Ticker;
-    console.log(result[i]);
-    console.log(result.length);
+    var company = result[i].company;
+    var ticker = result[i].ticker;
+    console.log(i, company, ticker);
   }
 }
