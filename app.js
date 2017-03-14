@@ -28,5 +28,42 @@ var upload = multer({
 }).single('file');
 
 app.post('/upload', function(req, res){
-  
-})
+  var exceltojson;
+  upload(req, res, function(err){
+    if(err){
+      res.json({error_code:1, err_desc:err});
+      return;
+    }
+    if(!req.file){
+      res.json({error_code:1, err_desc:'No File Passed'});
+      return;
+    }
+    if(req.file.originalname.split('.')[req.file.originalname.split('.').length-1]==='xlsx'){
+      exceltojson = xlsxtojson;
+    }else{
+      exceltojson = xlstojson;
+    }
+    console.log(req.file.path);
+    try{
+      exceltojson({
+        input:req.file.path,
+        output:null,
+        lowerCaseHeaders:true
+      }, function(err,result){
+        if(err){
+          return res.json({error_code:1, err_desc:err, datat:null});
+        }
+        res.json({error_code:0, err_desc:null, data:result});
+      });
+    }catch(e){
+      res.json({error_code:1, err_desc:'Corupted EXCEL FILE!'});
+    }
+  })
+});
+
+app.get('/', function(req,res){
+  res.sendFile(__dirname + '/index.html');
+});
+app.listen('3000', function(){
+  console.log('On port 3 million is running');
+});
