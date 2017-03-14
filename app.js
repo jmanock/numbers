@@ -54,6 +54,7 @@ app.post('/upload', function(req, res){
           return res.json({error_code:1, err_desc:err, datat:null});
         }
         res.json({error_code:0, err_desc:null, data:result});
+        something(result);
       });
     }catch(e){
       res.json({error_code:1, err_desc:'Corupted EXCEL FILE!'});
@@ -67,3 +68,7 @@ app.get('/', function(req,res){
 app.listen('3000', function(){
   console.log('On port 3 million is running');
 });
+
+function something(result){
+  // This is where the magic happens
+}
