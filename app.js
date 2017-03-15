@@ -69,7 +69,7 @@ app.listen('3000', function(){
   console.log('On port 3 million is running');
 });
 
-function magic(result){
+function magic(result){    
   // This is where the magic happens
   for(var i = 0; i<result.length; i++){
     var company = result[i].company;
