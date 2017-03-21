@@ -4,6 +4,9 @@ var bodyParser = require('body-parser');
 var multer = require('multer');
 var xlstojson = require('xls-to-json-lc');
 var xlsxtojson = require('xlsx-to-json-lc');
+var request = require('request');
+var cheerio = require('cheerio');
+var fs = require('fs');
 
 app.use(bodyParser.json());
 
@@ -69,11 +72,26 @@ app.listen('3000', function(){
   console.log('On port 3 million is running');
 });
 
-function magic(result){    
-  // This is where the magic happens
+function magic(result){
+  // Need to request stock page
+  // look up stock ticker
+  // Maybe put it in the excel file
+  var something = [];
   for(var i = 0; i<result.length; i++){
     var company = result[i].company;
     var ticker = result[i].ticker;
-    console.log(i, company, ticker);
+    something.push(ticker);
+  }
+  for(var x = 0; x<something.length; x++){
+    var ticks = something[x];
+    var link = 'http://finance.yahoo.com/quote/';
+    var url = link+ticks;
+    request(url, function(error, response, body){
+      if(error){
+        console.log('Something went fucked: '+error)
+      }
+      var $ = cheerio.load(body);
+      $('span .Trsdu')
+    })
   }
 }
