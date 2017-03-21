@@ -80,18 +80,16 @@ function magic(result){
   for(var i = 0; i<result.length; i++){
     var company = result[i].company;
     var ticker = result[i].ticker;
-    something.push(ticker);
-  }
-  for(var x = 0; x<something.length; x++){
-    var ticks = something[x];
     var link = 'http://finance.yahoo.com/quote/';
-    var url = link+ticks;
-    request(url, function(error, response, body){
-      if(error){
-        console.log('Something went fucked: '+error)
-      }
-      var $ = cheerio.load(body);
-      $('span .Trsdu')
-    })
+    var url = link+ticker;
+    // request(url, function(error, response, body){
+    //   if(!error && response.statusCode === 200){
+    //     console.log(i,url);
+    //   }
+    // });
+
   }
+       // var price = $(this).find('span.Trsdu').text();
+       // console.log(price);
+
 }
