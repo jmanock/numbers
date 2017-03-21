@@ -73,9 +73,11 @@ app.listen('3000', function(){
 });
 
 function magic(result){
-  // Need to request stock page
-  // look up stock ticker
-  // Maybe put it in the excel file
+  /* IDEAS
+    - Put info into a new excel file?
+    - Save info in the same excel file?
+    - Add shares to see value
+  */
 
   for(var i = 0; i<result.length; i++){
     var company = result[i].company;
