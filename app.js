@@ -76,20 +76,24 @@ function magic(result){
   // Need to request stock page
   // look up stock ticker
   // Maybe put it in the excel file
-  var something = [];
+
   for(var i = 0; i<result.length; i++){
     var company = result[i].company;
     var ticker = result[i].ticker;
-    var link = 'http://finance.yahoo.com/quote/';
+    var link = 'http://www.marketwatch.com/investing/stock/';
     var url = link+ticker;
-    // request(url, function(error, response, body){
-    //   if(!error && response.statusCode === 200){
-    //     console.log(i,url);
-    //   }
-    // });
-
+    something(url);
   }
-       // var price = $(this).find('span.Trsdu').text();
-       // console.log(price);
 
+
+}
+function something(links){
+  request(links, function(error, response, body){
+    if(!error && response.statusCode === 200){
+      var $ = cheerio.load(body);
+      var stockPrice = $('h3 > bg-quote').text();
+      var today = $('span.change--point--q > bg-quote').text();
+      console.log(links, stockPrice);
+    }
+  });
 }

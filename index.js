@@ -13,8 +13,7 @@ function something(links){
       var $ = cheerio.load(body);
        var stockPrice = $('h3 > bg-quote').text();
        var today = $('span.change--point--q > bg-quote').text();
-       var something = $('tbody.remove-last-border > td.table__cell').text();
-      console.log(something);
+
       // if(today.charAt(0) === '-'){
       //
       // }
