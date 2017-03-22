@@ -1,7 +1,10 @@
 var request = require('request');
 var cheerio = require('cheerio');
+var fs = require('fs');
+var writeStream = fs.createWriteStream('file.xls');
 var url = 'http://www.marketwatch.com/investing/stock/';
 var list = ['CAT', 'ADBE', 'DE', 'DIS', 'GOOGL'];
+var backUpList = [];
 
 for(var i = 0; i<list.length; i++){
   var comp = list[i];
@@ -14,13 +17,21 @@ function something(links, comp){
       var $ = cheerio.load(body);
       var stockPrice = $('h3 > bg-quote').text();
       var today = $('span.change--point--q > bg-quote').text();
-      if(today.charAt(0) === '-'){
-        var openPrice = stockPrice - today;
-      }else{
-        var openPrice = today + stockPrice;
-      }
+      // if(today.charAt(0) === '-'){
+      //   var openPrice = +stockPrice + +today;
+      // }else{
+      //   var openPrice = today  - stockPrice;
+      // }
 
-      console.log(comp,'OpenPrice:', openPrice, 'StockPrice:', stockPrice, 'Today:', today);
+      //  console.log(comp,'OpenPrice:', openPrice, 'StockPrice:', stockPrice, 'Today:', today);
+      console.log('StockPrice', stockPrice, 'Today', today);
+
+    }else{
+      backUpList.push(links);
+      somethingElse(backUpList);
     }
   });
+}
+function somethingElse(backUpList){
+  console.log('Where in another function', backUpList);
 }
