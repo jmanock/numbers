@@ -4,21 +4,23 @@ var url = 'http://www.marketwatch.com/investing/stock/';
 var list = ['CAT', 'ADBE', 'DE', 'DIS', 'GOOGL'];
 
 for(var i = 0; i<list.length; i++){
-  var links = url+list[i];
-  something(links);
+  var comp = list[i];
+  var links = url+comp;
+  something(links, comp);
 }
-function something(links){
+function something(links, comp){
   request(links, function(error, response, body){
     if(!error && response.statusCode === 200){
       var $ = cheerio.load(body);
-       var stockPrice = $('h3 > bg-quote').text();
-       var today = $('span.change--point--q > bg-quote').text();
+      var stockPrice = $('h3 > bg-quote').text();
+      var today = $('span.change--point--q > bg-quote').text();
+      if(today.charAt(0) === '-'){
+        var openPrice = stockPrice - today;
+      }else{
+        var openPrice = today + stockPrice;
+      }
 
-      // if(today.charAt(0) === '-'){
-      //
-      // }
-
-      //  console.log(links, openPrice, stockPrice);
+      console.log(comp,'OpenPrice:', openPrice, 'StockPrice:', stockPrice, 'Today:', today);
     }
   });
 }

@@ -75,6 +75,7 @@ app.listen('3000', function(){
 function magic(result){
   /* IDEAS
     - Put info into a new excel file?
+    - Save open stock price
     - Save info in the same excel file?
     - Add shares to see value
   */
