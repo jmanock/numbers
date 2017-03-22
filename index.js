@@ -18,8 +18,8 @@ function Prices(links, comp){
       var $ = cheerio.load(body);
       var stockPrice = $('div#qwidget_lastsale').text();
       var change = $('div#qwidget_netchange').text();
-      var upordown = $('div#qwidget-arrow').prev().hasClass();
-      console.log(stockPrice, change, comp, upordown);
+
+      console.log(comp, stockPrice, change);
     }
-  })
+  });
 }
