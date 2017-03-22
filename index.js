@@ -2,36 +2,24 @@ var request = require('request');
 var cheerio = require('cheerio');
 var fs = require('fs');
 var writeStream = fs.createWriteStream('file.xls');
-var url = 'http://www.marketwatch.com/investing/stock/';
+var url = 'http://www.nasdaq.com/symbol/';
 var list = ['CAT', 'ADBE', 'DE', 'DIS', 'GOOGL'];
 var backUpList = [];
 
 for(var i = 0; i<list.length; i++){
   var comp = list[i];
   var links = url+comp;
-  something(links, comp);
+  Prices(links, comp);
 }
-function something(links, comp){
+
+function Prices(links, comp){
   request(links, function(error, response, body){
     if(!error && response.statusCode === 200){
       var $ = cheerio.load(body);
-      var stockPrice = $('h3 > bg-quote').text();
-      var today = $('span.change--point--q > bg-quote').text();
-      // if(today.charAt(0) === '-'){
-      //   var openPrice = +stockPrice + +today;
-      // }else{
-      //   var openPrice = today  - stockPrice;
-      // }
-
-      //  console.log(comp,'OpenPrice:', openPrice, 'StockPrice:', stockPrice, 'Today:', today);
-      console.log('StockPrice', stockPrice, 'Today', today);
-
-    }else{
-      backUpList.push(links);
-      somethingElse(backUpList);
+      var stockPrice = $('div#qwidget_lastsale').text();
+      var change = $('div#qwidget_netchange').text();
+      var upordown = $('div#qwidget-arrow').prev().hasClass();
+      console.log(stockPrice, change, comp, upordown);
     }
-  });
-}
-function somethingElse(backUpList){
-  console.log('Where in another function', backUpList);
+  })
 }
